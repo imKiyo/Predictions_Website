@@ -1,0 +1,110 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f4f4f4; /* Light background color */
+}
+
+/* Container for all predictions */
+.container {
+    width: 90%; /* Responsive width */
+    max-width: 1200px; /* Max width for larger screens */
+    margin: 20px auto; /* Vertical spacing and center alignment */
+    padding: 20px;
+}
+
+/* Individual Prediction Box */
+.prediction-box {
+    background-color: #ffffff; /* White background for boxes */
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    margin: 10px 0; /* Vertical margin */
+    padding: 15px; /* Internal spacing */
+    position: relative; /* For positioning the copy link */
+    transition: box-shadow 0.2s; /* Smooth shadow transition */
+}
+
+/* Box shadow on hover */
+.prediction-box:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+/* Title style */
+.prediction-box h2 {
+    font-size: 1.5em; /* Title size */
+    margin-bottom: 10px; /* Space below title */
+}
+
+/* Description style */
+.prediction-box p {
+    margin: 5px 0; /* Space between paragraphs */
+}
+
+/* Timestamp and status style */
+.time-status {
+    font-size: 0.9em; /* Smaller text for timestamps and statuses */
+    color: #666; /* Gray color */
+}
+
+/* Status indicator styles */
+.status-active {
+    color: green; /* Active status in green */
+}
+
+.status-correct {
+    color: blue; /* Correct status in blue */
+}
+
+.status-wrong {
+    color: red; /* Wrong status in red */
+}
+
+/* Link to copy */
+.copy-link {
+    position: absolute; /* Position in the top right corner */
+    right: 10px;
+    top: 10px;
+    font-size: 0.8em; /* Smaller link text */
+    color: #007BFF; /* Bootstrap primary color */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Load More Button */
+.load-more-btn {
+    display: block; /* Block element to span full width */
+    margin: 20px auto;
+    padding: 10px 20px; /* Padding for button */
+    background-color: #007BFF; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1em; /* Button font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.2s; /* Smooth color transition */
+}
+
+/* Button hover effect */
+.load-more-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .prediction-box {
+        padding: 10px; /* Less padding on smaller screens */
+    }
+
+    .load-more-btn {
+        width: 100%; /* Full width button on small screens */
+    }
+}
