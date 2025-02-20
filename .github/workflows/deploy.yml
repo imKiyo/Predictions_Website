@@ -16,18 +16,17 @@ jobs:
           sed -i "s/PROJECT_ID_PLACEHOLDER/${{ secrets.FIREBASE_PROJECT_ID }}/g" keys.js
           sed -i "s/APP_ID_PLACEHOLDER/${{ secrets.FIREBASE_APP_ID }}/g" keys.js
 
-      # Step 3: Install dependencies
+      # Step 3: Install dependencies including Firebase
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install firebase
 
-      # Step 4: Install Firebase
-        run: npm install firebase
-
-      # Step 5: Build the project
+      # Step 4: Build the project
       - name: Build project
         run: npm run build
 
-      # Step 6: Deploy to GitHub Pages
+      # Step 5: Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
