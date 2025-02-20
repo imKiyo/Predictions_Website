@@ -16,13 +16,12 @@ module.exports = {
       'process.env.DATABASE_URL': JSON.stringify(process.env.DATABASE_URL),
       'process.env.SENDER_ID': JSON.stringify(process.env.SENDER_ID),
       'process.env.FIREBASE_APP_ID': JSON.stringify(process.env.FIREBASE_APP_ID),
-      'process.env.MEASUREMENT_ID': JSON.stringify(process.env.MEASUREMENT_ID),
+      'process.env.MEASUREMENT_ID': JSON.stringify(process.env.MEASUREMENT_ID)
     }),
     new CopyWebpackPlugin({
       patterns: [
         { from: 'index.html', to: 'index.html' },
-        { from: 'styles.css', to: 'styles.css' },
-        { from: 'keys.js', to: 'keys.js' }
+        { from: 'styles.css', to: 'styles.css' }
       ]
     })
   ],

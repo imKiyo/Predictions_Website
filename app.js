@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: 'kiyo-predictions.appspot.com',
   messagingSenderId: process.env.SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.MEASUREMENT_ID,
+  measurementId: process.env.MEASUREMENT_ID
 };
 
 // Initialize Firebase
