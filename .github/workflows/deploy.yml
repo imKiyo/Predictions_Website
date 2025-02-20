@@ -31,13 +31,14 @@ jobs:
           npm install firebase
 
       # Step 5: Build the project
+      - name: Build project
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
         run: npm run build
 
-      # Step 6: Deploy to GitHub Pages!
+      # Step 6: Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
