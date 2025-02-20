@@ -45,6 +45,11 @@ jobs:
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git add build || exit 0
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git fetch origin
+          git worktree add /tmp/gh-pages gh-pages || git worktree add /tmp/gh-pages origin/gh-pages
+          rsync -av --delete build/ /tmp/gh-pages/
+          cd /tmp/gh-pages
+          git add --all
           git commit -m "Deploy to GitHub Pages"
-          git push origin `git subtree split --prefix build main`:gh-pages --force
+          git push origin gh-pages
