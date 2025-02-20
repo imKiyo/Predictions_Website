@@ -1,0 +1,20 @@
+{
+  "name": "predictions_website",
+  "version": "1.0.0",
+  "description": "A website for predictions using Firebase",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "echo 'Building the project...' && mkdir -p build && cp -r * build/",
+    "test": "echo 'Running tests...' && exit 0"
+  },
+  "author": "imKiyo",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^9.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

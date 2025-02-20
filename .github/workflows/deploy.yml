@@ -9,24 +9,32 @@ jobs:
       # Step 1: Checkout the repository
       - uses: actions/checkout@v4
 
-      # Step 2: Replace placeholders in keys.js with secrets
+      # Step 2: Verify package.json exists
+      - name: Verify package.json exists
+        run: |
+          if [ ! -f package.json ]; then
+            echo "package.json not found!"
+            exit 1
+          fi
+
+      # Step 3: Replace placeholders in keys.js with secrets
       - name: Replace Firebase Config
         run: |
           sed -i "s/API_KEY_PLACEHOLDER/${{ secrets.FIREBASE_API_KEY }}/g" keys.js
           sed -i "s/PROJECT_ID_PLACEHOLDER/${{ secrets.FIREBASE_PROJECT_ID }}/g" keys.js
           sed -i "s/APP_ID_PLACEHOLDER/${{ secrets.FIREBASE_APP_ID }}/g" keys.js
 
-      # Step 3: Install dependencies including Firebase
+      # Step 4: Install dependencies including Firebase
       - name: Install dependencies
         run: |
           npm install
           npm install firebase
 
-      # Step 4: Build the project
+      # Step 5: Build the project
       - name: Build project
         run: npm run build
 
-      # Step 5: Deploy to GitHub Pages
+      # Step 6: Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
