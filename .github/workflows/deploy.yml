@@ -1,17 +1,15 @@
 name: Deploy to GitHub Pages
 on:
   push:
-    branches: [ main ] # Trigger on pushes to the main branch
+    branches: [ main ]
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      # Step 1: Checkout the repository
       - uses: actions/checkout@v4
 
-      # Step 2: Verify package.json exists
       - name: Verify package.json exists
         run: |
           if [ ! -f package.json ]; then
@@ -19,7 +17,6 @@ jobs:
             exit 1
           fi
 
-      # Step 3: Set environment variables
       - name: Set environment variables
         run: |
           echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> $GITHUB_ENV
@@ -29,13 +26,11 @@ jobs:
           echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
           echo "MEASUREMENT_ID=${{ secrets.MEASUREMENT_ID }}" >> $GITHUB_ENV
 
-      # Step 4: Install dependencies including Firebase
       - name: Install dependencies
         run: |
           npm install
           npm install firebase
 
-      # Step 5: Build the project
       - name: Build project
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
@@ -46,14 +41,10 @@ jobs:
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
         run: npm run build
 
-      # Step 6: Deploy to GitHub Pages
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          if [ -d build ]; then
-            git rm -r --cached build
-          fi
-          git add build
+          git add build || exit 0
           git commit -m "Deploy to GitHub Pages"
           git push origin `git subtree split --prefix build main`:gh-pages --force
