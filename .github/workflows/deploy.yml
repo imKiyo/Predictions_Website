@@ -17,12 +17,12 @@ jobs:
             exit 1
           fi
 
-      # Step 3: Replace placeholders in keys.js with secrets
-      - name: Replace Firebase Config
+      # Step 3: Set environment variables
+      - name: Set environment variables
         run: |
-          sed -i "s/API_KEY_PLACEHOLDER/${{ secrets.FIREBASE_API_KEY }}/g" keys.js
-          sed -i "s/PROJECT_ID_PLACEHOLDER/${{ secrets.FIREBASE_PROJECT_ID }}/g" keys.js
-          sed -i "s/APP_ID_PLACEHOLDER/${{ secrets.FIREBASE_APP_ID }}/g" keys.js
+          echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> $GITHUB_ENV
+          echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
 
       # Step 4: Install dependencies including Firebase
       - name: Install dependencies
@@ -31,12 +31,15 @@ jobs:
           npm install firebase
 
       # Step 5: Build the project
-      - name: Build project
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
         run: npm run build
 
       # Step 6: Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build # Publish the build directory
