@@ -37,7 +37,7 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
         run: npm run build
 
-      # Step 6: Deploy to GitHub Pages
+      # Step 6: Deploy to GitHub Pages!
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
