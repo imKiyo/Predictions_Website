@@ -1,6 +1,6 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './app.js',  // Use app.js as the entry point
@@ -10,7 +10,14 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new Dotenv(),
+    new webpack.DefinePlugin({
+      'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
+      'process.env.FIREBASE_PROJECT_ID': JSON.stringify(process.env.FIREBASE_PROJECT_ID),
+      'process.env.DATABASE_URL': JSON.stringify(process.env.DATABASE_URL),
+      'process.env.SENDER_ID': JSON.stringify(process.env.SENDER_ID),
+      'process.env.FIREBASE_APP_ID': JSON.stringify(process.env.FIREBASE_APP_ID),
+      'process.env.MEASUREMENT_ID': JSON.stringify(process.env.MEASUREMENT_ID),
+    }),
     new CopyWebpackPlugin({
       patterns: [
         { from: 'index.html', to: 'index.html' },
