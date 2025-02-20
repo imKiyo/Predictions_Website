@@ -3,7 +3,7 @@ const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './index.js',
+  entry: './app.js',  // Use app.js as the entry point
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
@@ -15,7 +15,6 @@ module.exports = {
       patterns: [
         { from: 'index.html', to: 'index.html' },
         { from: 'styles.css', to: 'styles.css' },
-        { from: 'app.js', to: 'app.js' },
         { from: 'keys.js', to: 'keys.js' }
       ]
     })

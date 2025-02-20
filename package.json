@@ -2,10 +2,10 @@
   "name": "predictions_website",
   "version": "1.0.0",
   "description": "A website for predictions using Firebase",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "webpack serve --open",
-    "build": "webpack --mode production && mkdir -p build && rsync -av --exclude='build' ./ build/",
+    "build": "webpack --mode production",
     "test": "echo 'Running tests...' && exit 0"
   },
   "author": "imKiyo",
@@ -18,7 +18,8 @@
     "webpack": "^5.50.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^4.0.0",
-    "copy-webpack-plugin": "^9.0.0"
+    "copy-webpack-plugin": "^9.0.0",
+    "babel-loader": "^8.2.2"
   },
   "engines": {
     "node": ">=14.0.0"
