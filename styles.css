@@ -108,3 +108,40 @@ body {
         width: 100%; /* Full width button on small screens */
     }
 }
+/* Voting Buttons */
+.vote-section {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.upvote-btn, .downvote-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+/* Search Bar */
+.search-bar {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Expiration Highlight */
+.expiring-soon {
+  border-left: 4px solid #ff9900;
+}
+
+.expired {
+  border-left: 4px solid #ff0000;
+}
