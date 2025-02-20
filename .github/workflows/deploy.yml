@@ -3,8 +3,10 @@ on:
   push:
     branches: [ main ] # Trigger on pushes to the main branch
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest # Use the latest Ubuntu environment
+    permissions:
+      contents: write
     steps:
       # Step 1: Checkout the repository
       - uses: actions/checkout@v4
@@ -40,7 +42,9 @@ jobs:
 
       # Step 6: Deploy to GitHub Pages
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          publish_dir: ./build # Publish the build directory
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git add build
+          git commit -m "Deploy to GitHub Pages"
+          git push origin `git subtree split --prefix build main`:gh-pages --force
