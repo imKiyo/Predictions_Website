@@ -43,18 +43,19 @@ async function loadPredictions() {
     const prediction = doc.data();
     predictionsContainer.innerHTML += renderPrediction({ id: doc.id, ...prediction });
   });
-  lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+  lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
 }
 
 // Load more predictions
 document.getElementById('loadMore').addEventListener('click', async () => {
+  if (!lastVisible) return; // Prevent further calls if no more documents are left
   const q = query(collection(db, 'predictions'), orderBy('created', 'desc'), startAfter(lastVisible), limit(5));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     const prediction = doc.data();
     predictionsContainer.innerHTML += renderPrediction({ id: doc.id, ...prediction });
   });
-  lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+  lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
 });
 
 // Initialize
