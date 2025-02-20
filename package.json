@@ -4,8 +4,8 @@
   "description": "A website for predictions using Firebase",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "build": "echo 'Building the project...' && mkdir -p build && rsync -av --exclude='build' ./ build/",
+    "start": "webpack serve --open",
+    "build": "webpack --mode production && mkdir -p build && rsync -av --exclude='build' ./ build/",
     "test": "echo 'Running tests...' && exit 0"
   },
   "author": "imKiyo",
@@ -13,7 +13,12 @@
   "dependencies": {
     "firebase": "^9.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv-webpack": "^7.0.2",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.0.0"
+  },
   "engines": {
     "node": ">=14.0.0"
   }
