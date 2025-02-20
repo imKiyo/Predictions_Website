@@ -1,12 +1,12 @@
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_PROJECT_ID + ".firebaseapp.com",
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_PROJECT_ID + ".firebasestorage.app",
-  messagingSenderId: process.env.SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_FIREBASE_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_DATABASE_URL",
+  projectId: "YOUR_FIREBASE_PROJECT_ID",
+  storageBucket: "YOUR_FIREBASE_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_FIREBASE_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
 };
 
 // Initialize Firebase
