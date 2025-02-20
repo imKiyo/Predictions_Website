@@ -1,14 +1,10 @@
-const firebaseConfig = {
-  apiKey: "FIREBASE_API_KEY",
-  authDomain: "kiyo-predictions.firebaseapp.com",
-  databaseURL: "DATABASE_URL",
-  projectId: "FIREBASE_PROJECT_ID",
-  storageBucket: "kiyo-predictions.firebasestorage.app",
-  messagingSenderId: "SENDER_ID",
-  appId: "FIREBASE_APP_ID",
-  measurementId: "MEASUREMENT_ID"
+export const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: 'kiyo-predictions.firebaseapp.com',
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: 'kiyo-predictions.appspot.com',
+  messagingSenderId: process.env.SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();

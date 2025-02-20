@@ -1,4 +1,22 @@
-// Fetch predictions from Firestore
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, query, orderBy, limit, getDocs, startAfter } from 'firebase/firestore';
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: 'kiyo-predictions.firebaseapp.com',
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: 'kiyo-predictions.appspot.com',
+  messagingSenderId: process.env.SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 let lastVisible = null; // For pagination
 const predictionsContainer = document.getElementById('predictions-container');
 
@@ -18,34 +36,25 @@ function renderPrediction(prediction) {
 }
 
 // Load initial predictions
-function loadPredictions() {
-  db.collection("predictions")
-    .orderBy("created", "desc")
-    .limit(5)
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const prediction = doc.data();
-        predictionsContainer.innerHTML += renderPrediction({ id: doc.id, ...prediction });
-      });
-      lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
-    });
+async function loadPredictions() {
+  const q = query(collection(db, 'predictions'), orderBy('created', 'desc'), limit(5));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    const prediction = doc.data();
+    predictionsContainer.innerHTML += renderPrediction({ id: doc.id, ...prediction });
+  });
+  lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
 }
 
 // Load more predictions
-document.getElementById('loadMore').addEventListener('click', () => {
-  db.collection("predictions")
-    .orderBy("created", "desc")
-    .startAfter(lastVisible)
-    .limit(5)
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const prediction = doc.data();
-        predictionsContainer.innerHTML += renderPrediction({ id: doc.id, ...prediction });
-      });
-      lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
-    });
+document.getElementById('loadMore').addEventListener('click', async () => {
+  const q = query(collection(db, 'predictions'), orderBy('created', 'desc'), startAfter(lastVisible), limit(5));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    const prediction = doc.data();
+    predictionsContainer.innerHTML += renderPrediction({ id: doc.id, ...prediction });
+  });
+  lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
 });
 
 // Initialize
