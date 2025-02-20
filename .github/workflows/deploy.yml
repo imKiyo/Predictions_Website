@@ -24,7 +24,10 @@ jobs:
         run: |
           echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> $GITHUB_ENV
           echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+          echo "SENDER_ID=${{ secrets.SENDER_ID }}" >> $GITHUB_ENV
           echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
+          echo "MEASUREMENT_ID=${{ secrets.MEASUREMENT_ID }}" >> $GITHUB_ENV
 
       # Step 4: Install dependencies including Firebase
       - name: Install dependencies
@@ -37,7 +40,10 @@ jobs:
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SENDER_ID: ${{ secrets.SENDER_ID }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
         run: npm run build
 
       # Step 6: Deploy to GitHub Pages
