@@ -29,6 +29,8 @@ jobs:
           SENDER_ID: ${{ secrets.SENDER_ID }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
+        run: npm run build
+        
       - name: Copy static files
         run: |
           mkdir -p build
