@@ -38,9 +38,9 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
         run: npm run build
 
-      # Step 6: Deploy to GitHub Pages blep
+      # Step 6: Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ PERSONAL_ACCESS_TOKEN }}
           publish_dir: ./build # Publish the build directory
