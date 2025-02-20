@@ -30,14 +30,6 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
         run: npm run build
-        
-      - name: Copy static files
-        run: |
-          mkdir -p build
-          cp -r styles.css build/
-          cp -r index.html build/
-          cp -r app.js build/
-          cp -r keys.js build/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
