@@ -45,7 +45,11 @@ async function loadPredictions() {
 
     querySnapshot.forEach((doc) => {
       const prediction = { id: doc.id, ...doc.data() };
-      predictionsContainer.innerHTML += renderPrediction(prediction);
+      if (isValidPrediction(prediction)) {
+        predictionsContainer.innerHTML += renderPrediction(prediction);
+      } else {
+        console.warn(`Skipping invalid prediction with ID: ${doc.id}`);
+      }
     });
 
     lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
@@ -79,7 +83,11 @@ async function loadMore() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const prediction = { id: doc.id, ...doc.data() };
-      predictionsContainer.innerHTML += renderPrediction(prediction);
+      if (isValidPrediction(prediction)) {
+        predictionsContainer.innerHTML += renderPrediction(prediction);
+      } else {
+        console.warn(`Skipping invalid prediction with ID: ${doc.id}`);
+      }
     });
 
     lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
@@ -103,11 +111,26 @@ async function searchPredictions(searchTerm) {
 
     querySnapshot.forEach((doc) => {
       const prediction = { id: doc.id, ...doc.data() };
-      predictionsContainer.innerHTML += renderPrediction(prediction);
+      if (isValidPrediction(prediction)) {
+        predictionsContainer.innerHTML += renderPrediction(prediction);
+      } else {
+        console.warn(`Skipping invalid prediction with ID: ${doc.id}`);
+      }
     });
   } catch (error) {
     console.error('Error searching predictions:', error);
   }
+}
+
+// Validate prediction structure
+function isValidPrediction(prediction) {
+  const requiredFields = ['title', 'description', 'created', 'expires', 'status', 'authorId', 'category'];
+  for (const field of requiredFields) {
+    if (!prediction[field]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // Event listeners
