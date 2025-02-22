@@ -121,7 +121,6 @@ async function searchPredictions(searchTerm) {
     console.error('Error searching predictions:', error);
   }
 }
-
 // Validate prediction structure
 function isValidPrediction(prediction) {
   const requiredFields = ['title', 'description', 'created', 'expires', 'status', 'authorId', 'category'];
