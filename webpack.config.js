@@ -9,6 +9,9 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     publicPath: './'
   },
+  experiments: {
+    topLevelAwait: true
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
@@ -23,8 +26,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'index.html', to: 'index.html' },
-        { from: 'styles.css', to: 'styles.css' },
-        { from: 'utils.js', to: 'utils.js' },
+        { from: 'styles.css', to: 'styles.css' }
       ]
     })
   ],
@@ -34,7 +36,11 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-syntax-top-level-await']
+          }
         }
       }
     ]

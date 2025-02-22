@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": [
+          "last 2 versions",
+          "not dead"
+        ]
+      },
+      "modules": false
+    }]
+  ],
+  "plugins": ["@babel/plugin-syntax-top-level-await"]
+}
