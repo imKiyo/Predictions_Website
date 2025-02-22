@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, orderBy, limit, getDocs, startAfter, where, Timestamp } from 'firebase/firestore';
 import { renderPrediction, debounce } from './utils.js';
 
-
 // Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -28,15 +27,29 @@ const categorySelect = document.getElementById('categoryFilter');
 // Load initial predictions
 async function loadPredictions() {
   try {
-    const q = query(collection(db, 'predictions'), orderBy('created', 'desc'), limit(5));
+    const category = categorySelect.value;
+    const filter = filterSelect.value;
+    const sort = sortSelect.value;
+
+    let q = query(
+      collection(db, 'predictions'),
+      where('category', '==', category),
+      orderBy('created', sort === 'desc' ? 'desc' : 'asc'),
+      limit(5)
+    );
+
+    if (filter !== 'all') {
+      q = query(q, where('status', '==', filter));
+    }
+
     const querySnapshot = await getDocs(q);
     predictionsContainer.innerHTML = '';
-    
+
     querySnapshot.forEach((doc) => {
       const prediction = { id: doc.id, ...doc.data() };
       predictionsContainer.innerHTML += renderPrediction(prediction);
     });
-    
+
     lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
   } catch (error) {
     predictionsContainer.innerHTML = `
@@ -49,21 +62,30 @@ async function loadPredictions() {
 // Load more predictions
 async function loadMore() {
   if (!lastVisible) return;
-  
+
   try {
-    const q = query(
+    const category = categorySelect.value;
+    const filter = filterSelect.value;
+    const sort = sortSelect.value;
+
+    let q = query(
       collection(db, 'predictions'),
-      orderBy('created', 'desc'),
+      where('category', '==', category),
+      orderBy('created', sort === 'desc' ? 'desc' : 'asc'),
       startAfter(lastVisible),
       limit(5)
     );
-    
+
+    if (filter !== 'all') {
+      q = query(q, where('status', '==', filter));
+    }
+
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const prediction = { id: doc.id, ...doc.data() };
       predictionsContainer.innerHTML += renderPrediction(prediction);
     });
-    
+
     lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
   } catch (error) {
     console.error('Error loading more predictions:', error);
@@ -73,16 +95,26 @@ async function loadMore() {
 // Search predictions
 async function searchPredictions(searchTerm) {
   try {
-    const q = query(
+    const category = categorySelect.value;
+    const filter = filterSelect.value;
+    const sort = sortSelect.value;
+
+    let q = query(
       collection(db, 'predictions'),
+      where('category', '==', category),
       where('title', '>=', searchTerm),
       where('title', '<=', searchTerm + '\uf8ff'),
+      orderBy('created', sort === 'desc' ? 'desc' : 'asc'),
       limit(5)
     );
-    
+
+    if (filter !== 'all') {
+      q = query(q, where('status', '==', filter));
+    }
+
     const querySnapshot = await getDocs(q);
     predictionsContainer.innerHTML = '';
-    
+
     querySnapshot.forEach((doc) => {
       const prediction = { id: doc.id, ...doc.data() };
       predictionsContainer.innerHTML += renderPrediction(prediction);
@@ -95,7 +127,6 @@ async function searchPredictions(searchTerm) {
 // Event listeners
 document.getElementById('loadMore').addEventListener('click', loadMore);
 searchInput.addEventListener('input', debounce((e) => searchPredictions(e.target.value), 300));
-
 sortSelect.addEventListener('change', loadPredictions);
 filterSelect.addEventListener('change', loadPredictions);
 categorySelect.addEventListener('change', loadPredictions);
