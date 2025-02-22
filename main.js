@@ -1,4 +1,4 @@
-import { db } from './c.js';
+import { db } from './app.js';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 // Function to read data from the database

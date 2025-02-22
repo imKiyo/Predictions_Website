@@ -2,7 +2,7 @@
   "name": "predictions_website",
   "version": "1.0.0",
   "description": "A website for predictions using Firebase",
-  "main": "c.js",
+  "main": "app.js",
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack --mode production",
