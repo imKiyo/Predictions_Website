@@ -1,0 +1,6 @@
+# ignore ALL .log files
+*.log
+.env
+README.md
+# ignore ALL files in ANY directory named temp
+firebase-admin/ 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiyo.cam Predictions</title>
+    <title>Kiyo.cam | Predictions</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,12 +11,40 @@
         <header>
             <h1>Predictions Website</h1>
         </header>
-        <main>
-            <div id="predictions-container"></div>
-            <button class="load-more-btn" id="loadMore">Load More</button>
-        </main>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search predictions...">
+            <div id="searchResults" class="search-results"></div>
+        </div>
 
-        <script src="bundle.js"></script>
+        <div class="filter-container">
+            <select id="sortBy">
+                <option value="created">Latest</option>
+                <option value="expires">Expiring Soon</option>
+                <option value="category">Category</option>
+            </select>
+
+            <select id="filterBy">
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="resolved">Resolved</option>
+                <option value="expired">Expired</option>
+            </select>
+
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="politics">Politics</option>
+                <option value="technology">Technology</option>
+                <option value="economics">Economics</option>
+            </select>
+        </div>
+
+        <div id="predictions-container"></div>
+        <button class="load-more-btn" id="loadMore">Load More</button>
     </div>
+
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
