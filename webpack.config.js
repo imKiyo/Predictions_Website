@@ -16,9 +16,9 @@ module.exports = {
       'process.env.DATABASE_URL': JSON.stringify(process.env.DATABASE_URL),
       'process.env.SENDER_ID': JSON.stringify(process.env.SENDER_ID),
       'process.env.FIREBASE_APP_ID': JSON.stringify(process.env.FIREBASE_APP_ID),
+      'process.env.MEASUREMENT_ID': JSON.stringify(process.env.MEASUREMENT_ID)
       'process.env.AUTH_DOMAIN': JSON.stringify(process.env.AUTH_DOMAIN)
       'process.env.STORAGE_BUCKET': JSON.stringify(process.env.STORAGE_BUCKET)
-      'process.env.MEASUREMENT_ID': JSON.stringify(process.env.MEASUREMENT_ID)
     }),
     new CopyWebpackPlugin({
       patterns: [
