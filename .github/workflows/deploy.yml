@@ -29,8 +29,8 @@ jobs:
           SENDER_ID: ${{ secrets.SENDER_ID }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
-          AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN}}
-          STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET}}
+          AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+          STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
         run: npm run build
 
       - name: Deploy to GitHub Pages
