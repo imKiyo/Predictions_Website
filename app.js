@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, orderBy, limit, getDocs, startAfter } from 'firebase/firestore';
+import { getFirestore, collection, query, orderBy, limit, getDocs, startAfter, where, Timestamp } from 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -25,8 +25,8 @@ function renderPrediction(prediction) {
       <h2>${prediction.title}</h2>
       <p>${prediction.description}</p>
       <div class="time-status">
-        <span>Created: ${prediction.created}</span><br>
-        <span>Expires: ${prediction.expires}</span><br>
+        <span>Created: ${prediction.created.toDate().toLocaleDateString()}</span><br>
+        <span>Expires: ${prediction.expires.toDate().toLocaleDateString()}</span><br>
         <span class="status-${prediction.status}">Status: ${prediction.status}</span>
       </div>
       <button class="copy-link" onclick="copyLink('${prediction.id}')">Copy Link</button>
@@ -56,6 +56,44 @@ document.getElementById('loadMore').addEventListener('click', async () => {
   });
   lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1] || null;
 });
+
+// Example Queries
+
+// Get recent predictions
+async function getRecentPredictions() {
+  const q = query(collection(db, 'predictions'), orderBy('created', 'desc'), limit(10));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+  });
+}
+
+// Get predictions by category
+async function getPredictionsByCategory(category) {
+  const q = query(collection(db, 'predictions'), where('category', '==', category), orderBy('created', 'desc'), limit(10));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+  });
+}
+
+// Get user's predictions
+async function getUserPredictions(userId) {
+  const q = query(collection(db, 'predictions'), where('authorId', '==', userId), orderBy('created', 'desc'));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+  });
+}
+
+// Get expiring soon predictions
+async function getExpiringPredictions(futureDate) {
+  const q = query(collection(db, 'predictions'), where('status', '==', 'active'), where('expires', '<=', Timestamp.fromDate(new Date(futureDate))), orderBy('expires'), limit(10));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+  });
+}
 
 // Initialize
 loadPredictions();
