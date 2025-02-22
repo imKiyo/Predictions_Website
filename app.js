@@ -27,21 +27,7 @@ const categorySelect = document.getElementById('categoryFilter');
 // Load initial predictions
 async function loadPredictions() {
   try {
-    const category = categorySelect.value;
-    const filter = filterSelect.value;
-    const sort = sortSelect.value;
-
-    let q = query(
-      collection(db, 'predictions'),
-      where('category', '==', category),
-      orderBy('created', sort === 'desc' ? 'desc' : 'asc'),
-      limit(5)
-    );
-
-    if (filter !== 'all') {
-      q = query(q, where('status', '==', filter));
-    }
-
+    const q = query(collection(db, 'predictions'), orderBy('created', 'desc'), limit(5));
     const querySnapshot = await getDocs(q);
     predictionsContainer.innerHTML = '';
 
