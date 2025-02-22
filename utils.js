@@ -1,6 +1,22 @@
 export function renderPrediction(prediction) {
-  const createdDate = prediction.created.toDate();
-  const expiresDate = prediction.expires.toDate();
+  let createdDate, expiresDate;
+
+  if (prediction.created instanceof Date) {
+    createdDate = prediction.created;
+  } else if (prediction.created && prediction.created.toDate) {
+    createdDate = prediction.created.toDate();
+  } else {
+    createdDate = new Date(); // Default to current date if undefined
+  }
+
+  if (prediction.expires instanceof Date) {
+    expiresDate = prediction.expires;
+  } else if (prediction.expires && prediction.expires.toDate) {
+    expiresDate = prediction.expires.toDate();
+  } else {
+    expiresDate = new Date(); // Default to current date if undefined
+  }
+
   const evidence = prediction.evidence || 'No evidence provided';
   const votes = prediction.votes || {};
   const voteCount = Object.keys(votes).length;
