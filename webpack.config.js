@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './app.js',
+  entry: './c.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
@@ -24,7 +24,6 @@ module.exports = {
       patterns: [
         { from: 'index.html', to: 'index.html' },
         { from: 'styles.css', to: 'styles.css' }
-        { from: 'config.js', to: 'config.js' }
         { from: 'utils.js', to: 'utils.js' }
       ]
     })

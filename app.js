@@ -1,5 +1,5 @@
 import { collection, query, orderBy, limit, getDocs, startAfter, where, Timestamp } from 'firebase/firestore';
-import { db } from './config.js';
+import { db } from './c.js';
 import { renderPrediction, debounce } from './utils.js';
 
 let lastVisible = null;
