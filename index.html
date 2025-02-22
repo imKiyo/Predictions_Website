@@ -14,14 +14,13 @@
         
         <div class="search-container">
             <input type="text" id="searchInput" class="search-input" placeholder="Search predictions...">
-            <div id="searchResults" class="search-results"></div>
+            <button id="searchButton" class="search-button">Search</button>
         </div>
 
         <div class="filter-container">
             <select id="sortBy">
                 <option value="created">Latest</option>
                 <option value="expires">Expiring Soon</option>
-                <option value="category">Category</option>
             </select>
 
             <select id="filterBy">
@@ -30,23 +29,12 @@
                 <option value="resolved">Resolved</option>
                 <option value="expired">Expired</option>
             </select>
-
-            <select id="categoryFilter">
-                <option value="all">All Categories</option>
-                <option value="politics">Politics</option>
-                <option value="technology">Technology</option>
-                <option value="economics">Economics</option>
-            </select>
         </div>
 
         <div id="predictions-container"></div>
         <button class="load-more-btn" id="loadMore">Load More</button>
-
-        <!-- Container for displaying votes -->
-        <div id="votes-container"></div>
     </div>
 
-    <!-- Note the type="module" attribute -->
     <script type="module" src="bundle.js"></script>
 </body>
 </html>

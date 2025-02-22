@@ -1,23 +1,6 @@
 export function renderPrediction(prediction) {
-  let createdDate, expiresDate;
-
-  if (prediction.created instanceof Date) {
-    createdDate = prediction.created;
-  } else if (prediction.created && prediction.created.toDate) {
-    createdDate = prediction.created.toDate();
-  } else {
-    createdDate = new Date(); // Default to current date if undefined
-  }
-
-  if (prediction.expires instanceof Date) {
-    expiresDate = prediction.expires;
-  } else if (prediction.expires && prediction.expires.toDate) {
-    expiresDate = prediction.expires.toDate();
-  } else {
-    expiresDate = new Date(); // Default to current date if undefined
-  }
-
-  const evidence = prediction.evidence || 'No evidence provided';
+  const createdDate = prediction.created.toDate();
+  const expiresDate = prediction.expires.toDate();
   const votes = prediction.votes || {};
   const voteCount = Object.keys(votes).length;
 
@@ -25,28 +8,14 @@ export function renderPrediction(prediction) {
     <div class="prediction-box" data-id="${prediction.id}">
       <h2>${prediction.title}</h2>
       <p>${prediction.description}</p>
-      <div class="evidence">
-        <strong>Evidence:</strong> ${evidence}
-      </div>
-      <div class="time-status">
+      <div class="prediction-details">
         <span>Created: ${createdDate.toLocaleDateString()}</span><br>
         <span>Expires: ${expiresDate.toLocaleDateString()}</span><br>
-        <span class="status-${prediction.status}">Status: ${prediction.status}</span>
+        <span class="status-${prediction.status}">Status: ${prediction.status}</span><br>
+        <span>Votes: ${voteCount}</span>
       </div>
-      <div class="votes">
-        <strong>Votes: ${voteCount}</strong>
-      </div>
-      <button class="copy-link" onclick="copyLink('${prediction.id}')">Copy Link</button>
-      <button class="view-votes" onclick="viewVotes('${prediction.id}')">View Votes</button>
     </div>
   `;
-}
-
-export function copyLink(predictionId) {
-  const url = `${window.location.origin}/prediction/${predictionId}`;
-  navigator.clipboard.writeText(url)
-    .then(() => alert('Link copied to clipboard!'))
-    .catch(err => console.error('Failed to copy link: ', err));
 }
 
 export function debounce(func, wait) {
@@ -59,29 +28,4 @@ export function debounce(func, wait) {
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
-}
-
-// Function to view votes (example implementation)
-export async function viewVotes(predictionId) {
-  const votesContainer = document.getElementById('votes-container');
-  const votesQuery = query(collection(db, `predictions/${predictionId}/votes`));
-  const querySnapshot = await getDocs(votesQuery);
-
-  votesContainer.innerHTML = `
-    <h3>Votes for Prediction: ${predictionId}</h3>
-    <ul>
-  `;
-
-  querySnapshot.forEach((doc) => {
-    const vote = doc.data();
-    votesContainer.innerHTML += `
-      <li>
-        <strong>User: ${doc.id}</strong><br>
-        <span>Timestamp: ${vote.timestamp.toDate().toLocaleDateString()}</span><br>
-        <span>Value: ${vote.value}</span>
-      </li>
-    `;
-  });
-
-  votesContainer.innerHTML += '</ul>';
 }
