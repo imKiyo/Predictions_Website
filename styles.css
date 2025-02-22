@@ -50,22 +50,37 @@ select {
 }
 
 .prediction-box {
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-.time-status {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #666;
+.prediction-content {
+    flex: 1;
+    margin-right: 20px;
 }
 
-.status-active { color: #28a745; }
-.status-expired { color: #dc3545; }
-.status-resolved { color: #007bff; }
+.prediction-details {
+    width: 200px;
+}
+
+.prediction-details div {
+    margin-bottom: 5px;
+}
+
+.status-active {
+    color: blue;
+}
+
+.status-correct {
+    color: green;
+}
+
+.status-wrong {
+    color: red;
+}
 
 .load-more-btn {
     display: block;
