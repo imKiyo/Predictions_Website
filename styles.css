@@ -60,6 +60,7 @@ select {
 .prediction-content {
     flex: 1;
     margin-right: 20px;
+    padding: 10px;
 }
 
 .prediction-details {
