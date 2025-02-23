@@ -51,7 +51,7 @@ select {
 
 
 /* Individual Prediction Box */
-.prediction {
+.prediction-box {
     border: 1px solid #cccccc; /* Light gray border */
     border-radius: 8px; /* Rounded corners */
     margin: 10px 0; /* Vertical margin */
@@ -64,7 +64,7 @@ select {
 }
 
 /* Box shadow on hover */
-.prediction:hover {
+.prediction-box:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
 }
 
