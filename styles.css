@@ -49,18 +49,28 @@ select {
     border: 1px solid #ddd;
 }
 
+
+/* Individual Prediction Box */
 .prediction-box {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    margin: 10px 0; /* Vertical margin */
+    padding: 15px; /* Internal spacing */
+    position: relative; /* For positioning the copy link */
+    transition: box-shadow 0.2s; /* Smooth shadow transition */
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* margin-bottom: 10px; */
+}
+
+/* Box shadow on hover */
+.prediction-box:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
 }
 
 .prediction-content {
     flex: 1;
     margin-right: 20px;
-    padding: 10px;
 }
 
 .prediction-details {
